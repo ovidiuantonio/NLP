@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Test</title>
+    </head>
+
+    <body>
+
+        <header>
+            <div class="">
+                <h1>Ovidiu-Antonio</h1>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <form class="" onsubmit="return Client.handleSubmit(event)">
+                    <input id="name" type="text" name="url" value="" placeholder="Enter URL">
+                    <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
+                </form>
+            <section>
+
+            <section>
+                <strong>Form Results:</strong>
+                <div id="results">
+                    <h1>Polarity</h1>
+                    <p id="polarity"></p>
+                    <h1>Subjectivity</h1>
+                    <p id="subjectivity"></p>
+                    <h1>Polarity Confidence</h1>
+                    <p id="polarity_confidence"></p>
+                    <h1>Subjectivity Confidence</h1>
+                    <p id="subjectivity_confidence"></p>
+                    <h1>Text</h1>
+                    <p id="text"></p>
+                </div>
+            </section>
+        </main>
+        <script>
+            if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').then(registration =>{
+                    console.log('SW registered successfuly: ', registration);
+                });
+            });
+            }else{
+            console.log("Service Working not supported");
+                }
+        </script>
+    </body>
+</html>
