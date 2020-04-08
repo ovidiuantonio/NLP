@@ -21,7 +21,7 @@
     "clean": "rm -rf build",
     "build-server": "babel -d ./build .server -s"
   },
-  "author": "juwana-zerman",
+  "author": "Ovidiu-Antonio",
   "license": "ISC",
   "description": "",
   "dependencies": {
