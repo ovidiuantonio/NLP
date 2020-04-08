@@ -21,13 +21,11 @@
     "clean": "rm -rf build",
     "build-server": "babel -d ./build .server -s"
   },
-  "keywords": [
-    "heroku"
-  ],
   "author": "juwana-zerman",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "acorn": ">=6.4.1",
     "aylien_textapi": "^0.7.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
