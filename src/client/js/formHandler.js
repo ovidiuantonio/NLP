@@ -1,36 +1,43 @@
-function handleSubmit(event) {
-  event.preventDefault();
+const userUrl = require('valid-url');
 
-  // check what url was put into the form field
-  let formURL = document.getElementById("name").value;
-  if (Client.checkURL(JSON.parse(JSON.stringify(formURL)))) {
-    console.log("::: Form url is ok :::");
-    fetch("http://localhost:3000/article", {
-      method: "POST",
-      mode: 'cors',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ 
-        text: formURL 
-      }),
-    })
-      .then((res) => {
-       return JSON.parse(res)
-      })
-      .then(function (res) {
-        //for debugging
-        console.log("result: " + res);
+const handleSubmit = function (event) {
+    event.preventDefault();
 
-        document.getElementById("polarity").innerHTML = res.polarity;
-        document.getElementById("subjectivity").innerHTML = res.subjectivity;
-        document.getElementById("polarity_confidence").innerHTML =
-          res.polarity_confidence;
-        document.getElementById("subjectivity_confidence").innerHTML =
-          res.subjectivity_confidence;
-        document.getElementById("text").innerHTML = res.text;
-      });
-  }
-}
+    let formText = document.getElementById('name').value;
+    // check for valid url
+    if (userUrl.isWebUri(formText)) {
+        console.log("::: Form Submitted :::");
+        fetchAylien('http://localhost:8080/article', formText);
+    } else {
+        document.getElementById('error').innerHTML = 'Please Enter a Valid URL.';
+        }
+};
 
-export { handleSubmit };
+    const fetchAylien = async (url, input) => {
+        const res = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            text: input})
+        });
+        try {
+            const data = await res.json();
+            if(res.status >= 200 && res.status < 400) {
+                //const list = document.createElement('li');
+                document.getElementById('polarity').innerHTML = data.polarity;
+                document.getElementById('polarity_confidence').innerHTML = data.polarity_confidence;
+                document.getElementById('subjectivity').innerHTML = data.subjectivity;
+                document.getElementById('subjectivity_confidence').innerHTML = data.subjectivity_confidence;
+                document.getElementById('text').innerHTML = data.text;
+            }
+            } catch(error) {
+                document.getElementById('error').innerHTML = 'Please try again later or enter another url, something went wrong!';
+            }
+        }
+
+export { handleSubmit, userUrl, fetchAylien }
